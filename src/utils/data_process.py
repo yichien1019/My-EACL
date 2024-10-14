@@ -206,31 +206,4 @@ def load_iemocap_turn(file_path):
     print(count)            # 輸出情緒標籤的總數
     return dialogues        # 返回處理好的對話列表
 
-# 從 DailyDialog 數據集中載入每個回合的數據(paper中沒有提到此數據集，也未提供)
-def load_dailydialog_turn(file_path):
-    with open('./data/DailyDialog/label_vocab.pkl', 'rb') as f:
-        emotion_vocab = pickle.load(f)     
-    f = open(file_path, 'r')               
-    data = f.readlines()                    
-    f.close()
-    dialogues = []                          
-    dialogue = []                           
-    speaker_vocab = vocab.Vocab()           
-    for utterance in tqdm(data,
-                    desc='processing file {}'.format(file_path)):
-        if utterance == '\n':
-            dialogues.append(dialogue)      
-            dialogue = []                  
-            continue
-        speaker = utterance.strip().split('\t')[0]
-        text = ' '.join(utterance.strip().split('\t')[1:-1])
-        emotion = utterance.strip().split('\t')[-1]    
-        emotion_idx = emotion_vocab[emotion]           
-        turn_data = {}
-        turn_data['speaker'] = speaker
-        speaker_vocab.word2index(speaker, train=True)   
-        turn_data['text'] = text
-        turn_data['label'] = emotion_idx
-        turn_data['emotion'] = emotion
-    dialogue.append(turn_data)                     
-    return dialogues               
+       

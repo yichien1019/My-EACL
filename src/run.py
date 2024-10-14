@@ -237,15 +237,9 @@ if __name__ == '__main__':
         all_fscore = sorted(all_fscore, key=lambda x: (x[0],x[1]), reverse=True)
         # 檢查是否啟用了兩階段訓練，如果沒有，直接記錄最佳結果
         if args.disable_two_stage_training:
-            if args.dataset_name=='DailyDialog':    # 沒有 DailyDialog 數據集，可省略不看
-                logger.info('Best micro/macro F-Score based on validation: {}/{}'.format(all_fscore[0][1],all_fscore[0][3]))
-                all_fscore = sorted(all_fscore, key=lambda x: x[1], reverse=True)
-                logger.info('Best micro/macro F-Score based on test: {}/{}'.format(all_fscore[0][1],all_fscore[0][3]))
-                
-            else:
-                logger.info('Best F-Score based on validation: {}'.format(all_fscore[0][1]))
-                logger.info('Best F-Score based on test: {}'.format(max([f[1] for f in all_fscore])))
-                logger.info(all_fscore[0][2])
+            logger.info('Best F-Score based on validation: {}'.format(all_fscore[0][1]))
+            logger.info('Best F-Score based on test: {}'.format(max([f[1] for f in all_fscore])))
+            logger.info(all_fscore[0][2])
         else:
             torch.cuda.empty_cache()        # 清空 CUDA 記憶體
             # 開始第二階段訓練
