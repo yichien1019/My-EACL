@@ -346,7 +346,6 @@ if __name__ == '__main__':
             # 將所有的 F-score 按照驗證分數進行排序
             logger.info('Best F-Score based on validation: {}'.format(all_fscore[0][1]))
             logger.info('Best F-Score based on test: {}'.format(max([f[1] for f in all_fscore])))
-            logger.info(f) 
             logger.info('Finish training!!!')   # add
     except Exception as e:
         logger.error(f"Error occurred: {str(e)}", exc_info=True)
